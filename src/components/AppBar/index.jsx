@@ -23,12 +23,14 @@ function AppBar() {
         height: (theme) => theme.trello.appBarHeight,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        gap: 2,
+        overflowX: 'auto'
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <AppsIcon sx={{ color: 'primary.main' }} />
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <SvgIcon
             component={TrelloIcon}
             inheritViewBox
@@ -45,10 +47,12 @@ function AppBar() {
             Trello
           </Typography>
 
-          <Workspaces />
-          <Recent />
-          <Starred />
-          <Templates />
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
+            <Workspaces />
+            <Recent />
+            <Starred />
+            <Templates />
+          </Box>
 
           <Button variant="outlined">Create</Button>
         </Box>
@@ -60,6 +64,7 @@ function AppBar() {
           label="Search..."
           variant="outlined"
           size="small"
+          sx={{ minWidth: 120 }}
         />
         <ModeSelect />
         <Tooltip title="Notifications">
