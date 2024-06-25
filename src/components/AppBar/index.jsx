@@ -12,6 +12,7 @@ import Badge from '@mui/material/Badge'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
 import Tooltip from '@mui/material/Tooltip'
 import Profiles from './Menus/Profiles'
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 
 function AppBar() {
   return (
@@ -31,6 +32,7 @@ function AppBar() {
           <SvgIcon
             component={TrelloIcon}
             inheritViewBox
+            fontSize="small"
             sx={{ color: 'primary.main' }}
           />
           <Typography
@@ -60,11 +62,12 @@ function AppBar() {
           size="small"
         />
         <ModeSelect />
-        <Tooltip title="Notification">
+        <Tooltip title="Notifications">
           <Badge color="secondary" variant="dot" sx={{ cursor: 'pointer' }}>
-            <NotificationsNoneIcon />
+            <NotificationsNoneIcon sx={{ color: 'primary.main' }} />
           </Badge>
         </Tooltip>
+        <HelpOutlineIcon sx={{ cursor: 'pointer', color: 'primary.main' }} />
         <Profiles />
       </Box>
     </Box>
