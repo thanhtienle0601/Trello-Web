@@ -16,7 +16,7 @@ function ModeSelect() {
   }
 
   return (
-    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+    <FormControl size="small">
       <InputLabel id="select-label">Mode</InputLabel>
       <Select
         labelId="select-label"
@@ -26,9 +26,9 @@ function ModeSelect() {
         onChange={handleChange}
       >
         <MenuItem value="light">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Box style={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <LightModeIcon /> Light
-          </div>
+          </Box>
         </MenuItem>
         <MenuItem value="dark">
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -36,7 +36,6 @@ function ModeSelect() {
           </Box>
         </MenuItem>
         <MenuItem value="system">
-          {' '}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <SettingsBrightnessIcon /> System
           </Box>
