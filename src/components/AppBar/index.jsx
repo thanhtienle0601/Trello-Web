@@ -31,6 +31,9 @@ function AppBar() {
         justifyContent: 'space-between',
         gap: 2,
         overflowX: 'auto',
+        '&::-webkit-scrollbar-track': {
+          m: 2
+        },
         paddingX: 2,
         backgroundColor: (theme) =>
           theme.palette.mode === 'light' ? '#1565c0' : '#2c3e50'

@@ -33,6 +33,9 @@ const BoardBar = () => {
         justifyContent: 'space-between',
         gap: 2,
         overflowX: 'auto',
+        '&::-webkit-scrollbar-track': {
+          m: 2
+        },
         paddingX: 2,
         borderBottom: '1px solid white',
         backgroundColor: (theme) =>
@@ -93,7 +96,12 @@ const BoardBar = () => {
               width: 34,
               height: 34,
               fontSize: 16,
-              border: 'none'
+              border: 'none',
+              color: 'white',
+              cursor: 'pointer',
+              '&:first-of-type': {
+                backgroundColor: '#7f8c8d'
+              }
             }
           }}
         >
