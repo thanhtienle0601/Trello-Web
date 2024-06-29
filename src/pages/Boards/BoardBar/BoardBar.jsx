@@ -37,7 +37,6 @@ const BoardBar = () => {
           m: 2
         },
         paddingX: 2,
-        borderBottom: '1px solid white',
         backgroundColor: (theme) =>
           theme.palette.mode === 'light' ? '#1976d2' : '#34495e'
       }}
