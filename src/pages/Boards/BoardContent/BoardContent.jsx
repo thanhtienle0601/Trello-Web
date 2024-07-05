@@ -20,7 +20,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { arrayMove } from '@dnd-kit/sortable'
 import Column from './ListColumns/Column/Column'
 import Card from './ListColumns/Column/ListCards/Card/Card'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, isEmpty } from 'lodash'
+import { generatePlaceHolderCard } from '~/utils/formatters'
 
 const ACTIVE_DRAG_ITEM_TYPE = {
   COLUMN: 'ACTIVE_DRAG_ITEM_TYPE_COLUMN',
@@ -107,6 +108,9 @@ const BoardContent = ({ board }) => {
         activeNewColumn.cards = activeNewColumn.cards.filter(
           (card) => card._id !== activeDraggingCardId
         )
+        if (isEmpty(activeNewColumn.cards)) {
+          activeNewColumn.cards = [generatePlaceHolderCard(activeNewColumn)]
+        }
         activeNewColumn.cardOrderIds = activeNewColumn.cards.map(
           (card) => card._id
         )
@@ -121,10 +125,13 @@ const BoardContent = ({ board }) => {
           ...activeDraggingCardData,
           columnId: overNewColumn._id
         })
-
+        overNewColumn.cards = overNewColumn.cards.filter(
+          (card) => !card.FE_placeHolderCard
+        )
         overNewColumn.cardOrderIds = overNewColumn.cards.map((card) => card._id)
       }
 
+      console.log('overNewColumn: ', overNewColumn)
       return newColumns
     })
   }
@@ -180,7 +187,7 @@ const BoardContent = ({ board }) => {
     if (!active || !over) return
 
     if (activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD) {
-      console.log('Card')
+      // console.log('Card')
       const {
         id: activeDraggingCardId,
         data: { current: activeDraggingCardData }
