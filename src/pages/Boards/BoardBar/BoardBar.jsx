@@ -43,18 +43,22 @@ const BoardBar = ({ board }) => {
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Chip
-          icon={<DashboardIcon />}
-          label={board?.title}
-          clickable
-          sx={MENU_STYLES}
-        />
-        <Chip
-          icon={<VpnLockIcon />}
-          label={capitalizeFirstLetter(board?.type)}
-          clickable
-          sx={MENU_STYLES}
-        />
+        <Tooltip title={board?.description}>
+          <Chip
+            icon={<DashboardIcon />}
+            label={board?.title}
+            clickable
+            sx={MENU_STYLES}
+          />
+        </Tooltip>
+        <Tooltip title={board?.type}>
+          <Chip
+            icon={<VpnLockIcon />}
+            label={capitalizeFirstLetter(board?.type)}
+            clickable
+            sx={MENU_STYLES}
+          />
+        </Tooltip>
         <Chip
           icon={<AddToDriveIcon />}
           label="Add To Google Drive"
