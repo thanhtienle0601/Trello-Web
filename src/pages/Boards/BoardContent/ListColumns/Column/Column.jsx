@@ -21,6 +21,7 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { Opacity } from '@mui/icons-material'
 import theme from '~/theme'
+import { toast } from 'react-toastify'
 
 function Column({ column }) {
   const [openAddNewCardForm, setOpenAddNewCardForm] = useState(false)
@@ -28,7 +29,10 @@ function Column({ column }) {
   const toggleOpenAddNewCardForm = () =>
     setOpenAddNewCardForm(!openAddNewCardForm)
   const addNewCard = () => {
-    if (!newCardTitle) return console.error('Please enter Card title !')
+    if (!newCardTitle)
+      return toast.error('Please enter Card title !', {
+        position: 'bottom-left'
+      })
 
     console.log(newCardTitle)
     toggleOpenAddNewCardForm()
