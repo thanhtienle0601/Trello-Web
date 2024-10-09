@@ -11,21 +11,28 @@ import { useState } from 'react'
 import theme from '~/theme'
 import { toast } from 'react-toastify'
 
-function ListColumns({ columns }) {
+function ListColumns({ columns, createNewColumn, createNewCard }) {
   const [openAddNewColumnForm, setOpenAddNewColumnForm] = useState(false)
   const [newColumnTitle, setNewColumnTitle] = useState('')
   const toggleOpenAddNewColumnForm = () =>
     setOpenAddNewColumnForm(!openAddNewColumnForm)
-  const addNewColumn = () => {
+
+  const addNewColumn = async () => {
     if (!newColumnTitle)
       return toast.error('Please enter column title !', {
         position: 'bottom-right'
       })
 
-    console.log(newColumnTitle)
+    const columnData = {
+      title: newColumnTitle
+    }
+
+    await createNewColumn(columnData)
+
     toggleOpenAddNewColumnForm()
     setNewColumnTitle('')
   }
+
   return (
     <SortableContext
       items={columns?.map((c) => c._id)}
@@ -45,7 +52,11 @@ function ListColumns({ columns }) {
         }}
       >
         {columns.map((column) => (
-          <Column key={column._id} column={column} />
+          <Column
+            key={column._id}
+            column={column}
+            createNewCard={createNewCard}
+          />
         ))}
 
         {/*Box add new column */}

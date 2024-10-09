@@ -23,18 +23,24 @@ import { Opacity } from '@mui/icons-material'
 import theme from '~/theme'
 import { toast } from 'react-toastify'
 
-function Column({ column }) {
+function Column({ column, createNewCard }) {
   const [openAddNewCardForm, setOpenAddNewCardForm] = useState(false)
   const [newCardTitle, setNewCardTitle] = useState('')
   const toggleOpenAddNewCardForm = () =>
     setOpenAddNewCardForm(!openAddNewCardForm)
-  const addNewCard = () => {
+  const addNewCard = async () => {
     if (!newCardTitle)
       return toast.error('Please enter Card title !', {
         position: 'bottom-left'
       })
 
-    console.log(newCardTitle)
+    const cardData = {
+      title: newCardTitle,
+      columnId: column._id
+    }
+
+    await createNewCard(cardData)
+
     toggleOpenAddNewCardForm()
     setNewCardTitle('')
   }
