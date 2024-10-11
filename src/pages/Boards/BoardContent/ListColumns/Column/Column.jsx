@@ -28,7 +28,7 @@ function Column({ column, createNewCard }) {
   const [newCardTitle, setNewCardTitle] = useState('')
   const toggleOpenAddNewCardForm = () =>
     setOpenAddNewCardForm(!openAddNewCardForm)
-  const addNewCard = async () => {
+  const addNewCard = () => {
     if (!newCardTitle)
       return toast.error('Please enter Card title !', {
         position: 'bottom-left'
@@ -39,7 +39,7 @@ function Column({ column, createNewCard }) {
       columnId: column._id
     }
 
-    await createNewCard(cardData)
+    createNewCard(cardData)
 
     toggleOpenAddNewCardForm()
     setNewCardTitle('')
@@ -74,7 +74,8 @@ function Column({ column, createNewCard }) {
     setAnchorEl(null)
   }
 
-  const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
+  const orderedCards = column.cards
+
   return (
     <div ref={setNodeRef} style={dndKitColumnStyles} {...attributes}>
       <Box

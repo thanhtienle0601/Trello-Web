@@ -33,7 +33,8 @@ const BoardContent = ({
   board,
   createNewColumn,
   createNewCard,
-  moveColumns
+  moveColumns,
+  moveCardsInSameColumn
 }) => {
   // const pointerSensor = useSensor(PointerSensor, {
   //   // Require the mouse to move by 10 pixels before activating
@@ -66,7 +67,7 @@ const BoardContent = ({
   const lastOverId = useRef(null)
 
   useEffect(() => {
-    setOrderedColumns(mapOrder(board?.columns, board?.columnOrderIds, '_id'))
+    setOrderedColumns(board.columns)
   }, [board])
 
   const findColumnByCardId = (cardId) => {
@@ -227,16 +228,22 @@ const BoardContent = ({
           oldCardIndex,
           newCardIndex
         )
+        const dndOrderedCardIds = dndOrderedCards.map((card) => card._id)
         setOrderedColumns((currentColumns) => {
           const newColumns = cloneDeep(currentColumns)
           const targetColumn = newColumns.find(
             (column) => column._id === overColumn._id
           )
           targetColumn.cards = dndOrderedCards
-          targetColumn.cardOrderIds = dndOrderedCards.map((card) => card._id)
+          targetColumn.cardOrderIds = dndOrderedCardIds
 
           return newColumns
         })
+        moveCardsInSameColumn(
+          dndOrderedCards,
+          dndOrderedCardIds,
+          oldColumnWhenDraggingCard._id
+        )
       }
     }
 
@@ -256,9 +263,8 @@ const BoardContent = ({
           newColumnIndex
         )
         // console.log('dndOrderedColumns: ', dndOrderedColumns)
-        moveColumns(dndOrderedColumns)
-
         setOrderedColumns(dndOrderedColumns)
+        moveColumns(dndOrderedColumns)
       }
     }
 
