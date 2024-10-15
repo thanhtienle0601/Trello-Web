@@ -11,7 +11,12 @@ import { useState } from 'react'
 import theme from '~/theme'
 import { toast } from 'react-toastify'
 
-function ListColumns({ columns, createNewColumn, createNewCard }) {
+function ListColumns({
+  columns,
+  createNewColumn,
+  createNewCard,
+  deleteColumn
+}) {
   const [openAddNewColumnForm, setOpenAddNewColumnForm] = useState(false)
   const [newColumnTitle, setNewColumnTitle] = useState('')
   const toggleOpenAddNewColumnForm = () =>
@@ -56,6 +61,7 @@ function ListColumns({ columns, createNewColumn, createNewCard }) {
             key={column._id}
             column={column}
             createNewCard={createNewCard}
+            deleteColumn={deleteColumn}
           />
         ))}
 
