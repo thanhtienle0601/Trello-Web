@@ -35,7 +35,8 @@ const BoardContent = ({
   createNewCard,
   moveColumns,
   moveCardsInSameColumn,
-  moveCardDifferenceColumns
+  moveCardDifferenceColumns,
+  deleteColumn
 }) => {
   // const pointerSensor = useSensor(PointerSensor, {
   //   // Require the mouse to move by 10 pixels before activating
@@ -359,6 +360,7 @@ const BoardContent = ({
           columns={orderedColumns}
           createNewColumn={createNewColumn}
           createNewCard={createNewCard}
+          deleteColumn={deleteColumn}
         />
         <DragOverlay dropAnimation={dropAnimationConfig}>
           {!activeDragItemType && null}
