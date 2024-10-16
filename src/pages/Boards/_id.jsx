@@ -175,7 +175,6 @@ const Board = () => {
           justifyContent: 'center',
           p: 2,
           gap: 2,
-          width: '100vh',
           height: '100vh'
         }}
       >
