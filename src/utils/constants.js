@@ -5,5 +5,4 @@ if (process.env.BUILD_MODE === 'dev') {
 if (process.env.BUILD_MODE === 'prod') {
   apiRoot = 'https://trello-api-lkhn.onrender.com'
 }
-console.log(process.env)
 export const API_ROOT = apiRoot
