@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -10,8 +9,12 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import { ConfirmProvider } from 'material-ui-confirm'
 
+// Config Redux store
+import { Provider } from 'react-redux'
+import { store } from '~/redux/store.js'
+
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  <Provider store={store}>
     <CssVarsProvider theme={theme}>
       <ConfirmProvider
         defaultOptions={{
@@ -26,5 +29,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <ToastContainer theme="colored" />
       </ConfirmProvider>
     </CssVarsProvider>
-  </React.StrictMode>
+  </Provider>
 )
