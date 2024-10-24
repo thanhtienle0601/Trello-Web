@@ -23,13 +23,22 @@ import { Opacity } from '@mui/icons-material'
 import theme from '~/theme'
 import { toast } from 'react-toastify'
 import { useConfirm } from 'material-ui-confirm'
+import { createCardAPI, deleteColumnDetailsAPI } from '~/apis'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  selectCurrentActiveBoard,
+  updateCurrentActiveBoard
+} from '~/redux/activeBoard/activeBoardSlice'
+import { cloneDeep } from 'lodash'
 
-function Column({ column, createNewCard, deleteColumn }) {
+function Column({ column }) {
+  const dispatch = useDispatch()
+  const board = useSelector(selectCurrentActiveBoard)
   const [openAddNewCardForm, setOpenAddNewCardForm] = useState(false)
   const [newCardTitle, setNewCardTitle] = useState('')
   const toggleOpenAddNewCardForm = () =>
     setOpenAddNewCardForm(!openAddNewCardForm)
-  const addNewCard = () => {
+  const addNewCard = async () => {
     if (!newCardTitle)
       return toast.error('Please enter Card title !', {
         position: 'bottom-left'
@@ -40,7 +49,28 @@ function Column({ column, createNewCard, deleteColumn }) {
       columnId: column._id
     }
 
-    createNewCard(cardData)
+    // Call api
+    const createdCard = await createCardAPI({
+      ...cardData,
+      boardId: board._id
+    })
+
+    // const newBoard = { ...board }
+    const newBoard = cloneDeep(board)
+    const columnToUpdate = newBoard.columns.find(
+      (column) => column._id === createdCard.columnId
+    )
+    if (columnToUpdate) {
+      if (columnToUpdate.cards.some((card) => card.FE_placeHolderCard)) {
+        columnToUpdate.cards = [createdCard]
+        columnToUpdate.cardOrderIds = [createdCard._id]
+      } else {
+        columnToUpdate.cards.push(createdCard)
+        columnToUpdate.cardOrderIds.push(createdCard._id)
+      }
+    }
+    // setBoard(newBoard)
+    dispatch(updateCurrentActiveBoard(newBoard))
 
     toggleOpenAddNewCardForm()
     setNewCardTitle('')
@@ -57,7 +87,29 @@ function Column({ column, createNewCard, deleteColumn }) {
       cancellationText: 'Cancel'
     })
       .then(() => {
-        deleteColumn(column._id)
+        // Call api
+        // Update board state
+        const newBoard = { ...board }
+        newBoard.columns = newBoard.columns.filter(
+          (col) => col._id !== column._id
+        )
+        newBoard.columnOrderIds = newBoard.columnOrderIds.filter(
+          (_id) => _id !== column._id
+        )
+        // setBoard(newBoard)
+        dispatch(updateCurrentActiveBoard(newBoard))
+
+        // Call api to delete column and cards
+        deleteColumnDetailsAPI(column._id).then((res) => {
+          if (res.status === 'success') {
+            toast.success(res.message)
+            // updateBoardDetailsAPI(newBoard._id, {
+            //   columnOrderIds: newBoard.columnOrderIds.filter(
+            //     (_id) => _id !== columnId
+            //   )
+            // })
+          }
+        })
       })
       .catch(() => {})
   }
