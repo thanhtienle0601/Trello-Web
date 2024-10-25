@@ -4,20 +4,14 @@ import BoardContent from './BoardContent/BoardContent'
 import BoardBar from './BoardBar/BoardBar'
 // import { mockData } from '~/apis/mock-data'
 import {
-  createCardAPI,
-  createColumnAPI,
   updateBoardDetailsAPI,
   updateColumnDetailsAPI,
-  moveCardDifferenceColumnsAPI,
-  deleteColumnDetailsAPI
+  moveCardDifferenceColumnsAPI
 } from '~/apis/index'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { cloneDeep } from 'lodash'
-import { generatePlaceHolderCard } from '~/utils/formatters'
-// import { mapOrder } from '~/utils/sort'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
-import { toast } from 'react-toastify'
 
 import {
   fetchBoardDetailsAPI,
@@ -25,14 +19,16 @@ import {
   updateCurrentActiveBoard
 } from '~/redux/activeBoard/activeBoardSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 const Board = () => {
   const dispatch = useDispatch()
   // const [board, setBoard] = useState(null)
   const board = useSelector(selectCurrentActiveBoard)
+  const { boardId } = useParams()
 
   useEffect(() => {
-    const boardId = '66fbccd45370a6270fe3467a'
+    // const boardId = '66fbccd45370a6270fe3467a'
     // fetchBoardDetailsAPI(boardId).then((board) => {
     //   board.columns = mapOrder(board.columns, board.columnOrderIds, '_id')
     //   board.columns.forEach((column) => {
@@ -47,7 +43,7 @@ const Board = () => {
     //   setBoard(board)
     // })
     dispatch(fetchBoardDetailsAPI(boardId))
-  }, [dispatch])
+  }, [dispatch, boardId])
 
   const moveColumns = (dndOrderedColumns) => {
     const dndOrderedColumnIds = dndOrderedColumns.map((c) => c._id)
@@ -119,10 +115,6 @@ const Board = () => {
         (col) => col._id === newColumnId
       )?.cardOrderIds
     })
-  }
-
-  const deleteColumn = (columnId) => {
-    //
   }
 
   if (!board) {
