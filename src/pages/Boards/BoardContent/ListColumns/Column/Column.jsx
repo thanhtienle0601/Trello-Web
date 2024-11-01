@@ -82,9 +82,7 @@ function Column({ column }) {
     confirmDeleteColumn({
       title: 'Delete Column ?',
       description:
-        'This action wil permanently delete your Column and its Cards! Are you sure ?',
-      confirmationText: 'Confirm',
-      cancellationText: 'Cancel'
+        'This action wil permanently delete your Column and its Cards! Are you sure ?'
     })
       .then(() => {
         // Call api
