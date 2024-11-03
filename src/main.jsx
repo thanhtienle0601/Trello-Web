@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import CssBaseline from '@mui/material/CssBaseline'
+import { GlobalStyles } from '@mui/material'
 import theme from './theme'
 import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles'
 
@@ -40,6 +41,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               cancellationText: 'Cancel'
             }}
           >
+            <GlobalStyles
+              styles={{
+                a: {
+                  textDecoration: 'none'
+                }
+              }}
+            />
             <CssBaseline />
             <App />
             <ToastContainer theme="colored" />
