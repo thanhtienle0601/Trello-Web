@@ -13,6 +13,7 @@ import IconButton from '@mui/material/IconButton'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCurrentUser, logoutUserAPI } from '~/redux/user/userSlice'
 import { useConfirm } from 'material-ui-confirm'
+import { Link } from 'react-router-dom'
 
 function Profiles() {
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -61,18 +62,26 @@ function Profiles() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem
-          onClick={handleClose}
-          sx={{
-            '&:hover': { color: 'success.light' }
+        <Link
+          style={{
+            color: 'inherit'
           }}
+          to={'/settings/account'}
         >
-          <Avatar
-            sx={{ width: 28, height: 28, mr: 2 }}
-            src={currentUser?.avatar}
-          />
-          Profile
-        </MenuItem>
+          <MenuItem
+            onClick={handleClose}
+            sx={{
+              '&:hover': { color: 'success.light' }
+            }}
+          >
+            <Avatar
+              sx={{ width: 28, height: 28, mr: 2 }}
+              src={currentUser?.avatar}
+            />
+            Profile
+          </MenuItem>
+        </Link>
+
         <Divider />
         <MenuItem>
           <ListItemIcon>
