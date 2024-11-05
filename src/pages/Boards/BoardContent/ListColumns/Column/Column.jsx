@@ -16,20 +16,22 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import AddCardIcon from '@mui/icons-material/AddCard'
 import DragHandleIcon from '@mui/icons-material/DragHandle'
 import CloseIcon from '@mui/icons-material/Close'
-import { mapOrder } from '~/utils/sort'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { Opacity } from '@mui/icons-material'
-import theme from '~/theme'
 import { toast } from 'react-toastify'
 import { useConfirm } from 'material-ui-confirm'
-import { createCardAPI, deleteColumnDetailsAPI } from '~/apis'
+import {
+  createCardAPI,
+  deleteColumnDetailsAPI,
+  updateColumnDetailsAPI
+} from '~/apis'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   selectCurrentActiveBoard,
   updateCurrentActiveBoard
 } from '~/redux/activeBoard/activeBoardSlice'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, update } from 'lodash'
+import ToggleFocusInput from '~/components/Form/ToggleFocusInput'
 
 function Column({ column }) {
   const dispatch = useDispatch()
@@ -112,6 +114,18 @@ function Column({ column }) {
       .catch(() => {})
   }
 
+  const onUpdateColumnTitle = (newTitle) => {
+    // Call api update column and update board state in redux
+    updateColumnDetailsAPI(column._id, { title: newTitle })
+    const newBoard = cloneDeep(board)
+    const columnToUpdate = newBoard.columns.find((c) => c._id === column._id)
+    if (columnToUpdate) {
+      columnToUpdate.title = newTitle
+    }
+    // setBoard(newBoard)
+    dispatch(updateCurrentActiveBoard(newBoard))
+  }
+
   const {
     attributes,
     listeners,
@@ -170,7 +184,7 @@ function Column({ column }) {
             p: 2
           }}
         >
-          <Typography
+          {/* <Typography
             variant="h6"
             sx={{
               fontWeight: 'bold',
@@ -179,7 +193,12 @@ function Column({ column }) {
             }}
           >
             {column?.title}
-          </Typography>
+          </Typography> */}
+          <ToggleFocusInput
+            value={column?.title}
+            onChangedValue={onUpdateColumnTitle}
+            data-no-dnd="true"
+          />
           <Box>
             <Tooltip title="More Options">
               <ExpandMoreIcon
