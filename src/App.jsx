@@ -21,12 +21,7 @@ function App() {
   return (
     <Routes>
       {/* Redirect route */}
-      <Route
-        path="/"
-        element={
-          <Navigate to={'/boards/66fbccd45370a6270fe3467a'} replace={true} />
-        }
-      />
+      <Route path="/" element={<Navigate to={'/boards'} replace={true} />} />
 
       <Route element={<ProtectedRoute user={currentUser} />}>
         {/* Board list */}
