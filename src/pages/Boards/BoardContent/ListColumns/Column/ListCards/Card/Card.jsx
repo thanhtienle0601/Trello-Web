@@ -9,10 +9,16 @@ import CommentIcon from '@mui/icons-material/Comment'
 import AttachmentIcon from '@mui/icons-material/Attachment'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import theme from '~/theme'
-import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  selectCurrentActiveCard,
+  updateCurrentActiveCard
+} from '~/redux/activeCard/activeCardSlice'
 
 function Card({ card }) {
+  const dispatch = useDispatch()
+  const activeCard = useSelector(selectCurrentActiveCard)
+
   const {
     attributes,
     listeners,
@@ -34,6 +40,7 @@ function Card({ card }) {
     opacity: isDragging ? 0.5 : undefined,
     border: isDragging ? '1px solid #2ecc71' : undefined
   }
+
   const shouldShowCardActions = () => {
     return (
       !!card?.memberIds?.length ||
@@ -41,8 +48,14 @@ function Card({ card }) {
       !!card?.attachments?.length
     )
   }
+
+  const setActiveCard = () => {
+    dispatch(updateCurrentActiveCard(card))
+  }
+
   return (
     <MuiCard
+      onClick={setActiveCard}
       ref={setNodeRef}
       style={dndKitCardStyles}
       {...attributes}

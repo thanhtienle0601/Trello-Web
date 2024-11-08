@@ -7,7 +7,18 @@ export default defineConfig({
   define: {
     'process.env': process.env
   },
-  plugins: [react(), viteSvgr()],
+  optimizeDeps: {
+    include: ['@emotion/react', '@emotion/styled', '@mui/material/Tooltip']
+  },
+  plugins: [
+    react({
+      jsxImportSource: '@emotion/react',
+      babel: {
+        plugins: ['@emotion/babel-plugin']
+      }
+    }),
+    viteSvgr()
+  ],
   // base: "./",
   resolve: {
     alias: [{ find: '~', replacement: '/src' }]

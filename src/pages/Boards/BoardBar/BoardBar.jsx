@@ -9,6 +9,7 @@ import Avatar from '@mui/material/Avatar'
 import AvatarGroup from '@mui/material/AvatarGroup'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import { capitalizeFirstLetter } from '~/utils/formatters'
+import BoardUserGroup from './BoardUserGroup'
 
 const MENU_STYLES = {
   borderRadius: '4px',
@@ -92,7 +93,9 @@ const BoardBar = ({ board }) => {
         >
           Invite
         </Button>
-        <AvatarGroup
+
+        <BoardUserGroup />
+        {/* <AvatarGroup
           max={5}
           sx={{
             gap: '10px',
@@ -151,7 +154,7 @@ const BoardBar = ({ board }) => {
               src="https://images.unsplash.com/photo-1581803118522-7b72a50f7e9f?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             />
           </Tooltip>
-        </AvatarGroup>
+        </AvatarGroup> */}
       </Box>
     </Box>
   )
