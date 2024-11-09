@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import Typography from '@mui/material/Typography'
@@ -41,6 +40,7 @@ import {
 
 import { styled } from '@mui/material/styles'
 import { updateCardDetailsAPI } from '~/apis'
+import { updateCardInBoard } from '~/redux/activeBoard/activeBoardSlice'
 const SidebarItem = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -82,12 +82,20 @@ function ActiveCard() {
     // Cập nhật lại thông tin của Card trong Redux Store
     dispatch(updateCurrentActiveCard(updatedCard))
 
+    // Update lại cái bản ghi card trong activeBoard
+    dispatch(updateCardInBoard(updatedCard))
+
     return updatedCard
   }
 
   const onUpdateCardTitle = (newTitle) => {
     // Gọi API...
     callApiUpdateCard({ title: newTitle.trim() })
+  }
+
+  const onUpdateCardDescription = (newDescription) => {
+    // Gọi API...
+    callApiUpdateCard({ description: newDescription })
   }
 
   const onUploadCardCover = (event) => {
@@ -101,6 +109,12 @@ function ActiveCard() {
     reqData.append('cardCover', event.target?.files[0])
 
     // Gọi API...
+    toast.promise(
+      callApiUpdateCard(reqData).finally(() => (event.target.value = '')),
+      {
+        pending: 'Uploading...'
+      }
+    )
   }
 
   return (
@@ -150,7 +164,7 @@ function ActiveCard() {
                 borderRadius: '6px',
                 objectFit: 'cover'
               }}
-              src="https://trungquandev.com/wp-content/uploads/2023/08/fit-banner-for-facebook-blog-trungquandev-codetq.png"
+              src={activeCard?.cover}
               alt="card-cover"
             />
           </Box>
@@ -202,7 +216,10 @@ function ActiveCard() {
               </Box>
 
               {/* Feature 03: Xử lý mô tả của Card */}
-              <CardDescriptionMdEditor />
+              <CardDescriptionMdEditor
+                cardDescriptionProp={activeCard?.description}
+                handleUpdateCardDescription={onUpdateCardDescription}
+              />
             </Box>
 
             <Box sx={{ mb: 3 }}>

@@ -5,8 +5,6 @@ import VpnLockIcon from '@mui/icons-material/VpnLock'
 import AddToDriveIcon from '@mui/icons-material/AddToDrive'
 import BoltIcon from '@mui/icons-material/Bolt'
 import FilterListIcon from '@mui/icons-material/FilterList'
-import Avatar from '@mui/material/Avatar'
-import AvatarGroup from '@mui/material/AvatarGroup'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import { capitalizeFirstLetter } from '~/utils/formatters'
 import BoardUserGroup from './BoardUserGroup'
@@ -94,7 +92,7 @@ const BoardBar = ({ board }) => {
           Invite
         </Button>
 
-        <BoardUserGroup />
+        <BoardUserGroup boardUsers={board?.FE_allUsers} />
         {/* <AvatarGroup
           max={5}
           sx={{
@@ -159,5 +157,26 @@ const BoardBar = ({ board }) => {
     </Box>
   )
 }
+// {
+//   "$oid": "6725cfcb10bc8be84a1e9b0b"
+// },
+// {
+//   "$oid": "672d99abb895abe1edfd4ea8"
+// },
+// {
+//   "$oid": "672d99b8b895abe1edfd4ea9"
+// },
+// {
+//   "$oid": "672d99c6b895abe1edfd4eaa"
+// },
+// {
+//   "$oid": "672d99d2b895abe1edfd4eab"
+// },
+// {
+//   "$oid": "672d99deb895abe1edfd4eac"
+// },
+// {
+//   "$oid": "672d99ebb895abe1edfd4ead"
+// }
 
 export default BoardBar
