@@ -12,6 +12,7 @@ import { CSS } from '@dnd-kit/utilities'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   selectCurrentActiveCard,
+  showModalActiveCard,
   updateCurrentActiveCard
 } from '~/redux/activeCard/activeCardSlice'
 
@@ -51,6 +52,7 @@ function Card({ card }) {
 
   const setActiveCard = () => {
     dispatch(updateCurrentActiveCard(card))
+    dispatch(showModalActiveCard())
   }
 
   return (
