@@ -8,6 +8,7 @@ import FilterListIcon from '@mui/icons-material/FilterList'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import { capitalizeFirstLetter } from '~/utils/formatters'
 import BoardUserGroup from './BoardUserGroup'
+import InviteBoardUser from './InviteBoardUser'
 
 const MENU_STYLES = {
   borderRadius: '4px',
@@ -78,7 +79,8 @@ const BoardBar = ({ board }) => {
         />
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Button
+        <InviteBoardUser boardId={board?._id} />
+        {/* <Button
           sx={{
             color: 'white',
             borderColor: 'white',
@@ -90,7 +92,7 @@ const BoardBar = ({ board }) => {
           startIcon={<PersonAddIcon />}
         >
           Invite
-        </Button>
+        </Button> */}
 
         <BoardUserGroup boardUsers={board?.FE_allUsers} />
         {/* <AvatarGroup
