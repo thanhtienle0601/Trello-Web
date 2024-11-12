@@ -8,7 +8,7 @@ export default defineConfig({
     'process.env': process.env
   },
   optimizeDeps: {
-    include: ['@emotion/react', '@emotion/styled', '@mui/material/Tooltip']
+    include: ['@mui/material', '@emotion/react', '@emotion/styled']
   },
   plugins: [
     react({
