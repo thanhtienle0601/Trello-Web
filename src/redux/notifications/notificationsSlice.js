@@ -45,7 +45,7 @@ export const notificationsSlice = createSlice({
     addNotification: (state, action) => {
       const incomingNotification = action.payload
 
-      state.currentNotifications.unShift(incomingNotification)
+      state.currentNotifications.unshift(incomingNotification)
     }
   },
   // ExtraReducers: Nơi xử lý bất đồng bộ
