@@ -70,10 +70,14 @@ function LoginForm() {
               marginTop: '1em',
               display: 'flex',
               justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
               color: (theme) => theme.palette.grey[500]
             }}
           >
-            Author: TrungQuanDev
+            <Typography>Email: tonydev123@gmail.com</Typography>
+            <Typography>Password: 12345678a@</Typography>
+            <Typography>Please wait for about 50s to active server!</Typography>
           </Box>
           <Box
             sx={{
